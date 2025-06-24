@@ -1,0 +1,41 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  background: linear-gradient(90deg, #fff);
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  margin-bottom: 0;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 80px;
+  height: 50px;
+  margin-left: 40px;
+  padding-top: 10px;;
+}
+
+
+.admin-button {
+  background-color: rgb(251, 136, 4);
+  color: white;
+  margin-right: 30px;
+  margin-top: 10px;;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.admin-button:hover {
+  background-color: #d24900d0;
+}
