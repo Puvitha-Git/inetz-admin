@@ -75,7 +75,7 @@ const AddStudentPage = () => {
             </div>
           <h2>Add Student Details</h2>
           <form onSubmit={handleSubmit}>
-            <label>Student Name *</label>
+            <label>Student Name <span className="indicate">*</span></label>
             <input
               type="text"
               placeholder="Enter name"
@@ -84,7 +84,7 @@ const AddStudentPage = () => {
               required
             />
 
-            <label>Interested in *</label>
+            <label>Preferred Domain<span className="indicate">*</span></label>
             <select
               value={type}
               onChange={(e) => {
@@ -95,14 +95,14 @@ const AddStudentPage = () => {
               }}
               required
             >
-              <option value="" disabled hidden>Course or Internship</option>
+              <option value="" disabled hidden>Course or Internship </option>
               <option value="Course">Course</option>
               <option value="Internship">Internship</option>
             </select>
 
             {type && (
               <>
-                <label>Duration *</label>
+                <label>Duration <span className="indicate">*</span></label>
                 <select
                   value={duration}
                   onChange={(e) => {
@@ -112,7 +112,7 @@ const AddStudentPage = () => {
                   }}
                   required
                 >
-                  <option value="" disabled hidden>Select Duration</option>
+                  <option value="" disabled hidden>Select Duration <span className="indicate">*</span></option>
                   {getDurationOptions().map((d, i) => (
                     <option key={i} value={d}>{d}</option>
                   ))}
@@ -131,7 +131,7 @@ const AddStudentPage = () => {
                   }}
                   required
                 >
-                  <option value="" disabled hidden>Select Domain</option>
+                  <option value="" disabled hidden>Select Domain <span className="indicate">*</span></option>
                   {getDomainOptions().map((d, i) => (
                     <option key={i} value={d}>{d}</option>
                   ))}
@@ -147,7 +147,7 @@ const AddStudentPage = () => {
                   onChange={(e) => setSpecificDomain(e.target.value)}
                   required
                 >
-                  <option value="" disabled hidden>Select Specific Domain</option>
+                  <option value="" disabled hidden>Select Specific Domain <span className="indicate">*</span></option>
                   {getSpecificDomains().map((d, i) => (
                     <option key={i} value={d}>{d}</option>
                   ))}
