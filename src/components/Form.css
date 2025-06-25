@@ -125,3 +125,7 @@ select {
   margin-bottom: 10px;
   ;
 }
+
+.toggle-password {
+  user-select: none;
+}

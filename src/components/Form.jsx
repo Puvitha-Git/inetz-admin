@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import lock from '../assets/lock.jpeg';
 import './Form.css';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const Form = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const Form = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const EMAIL = 'inetz@admin.com';
   const PASSWORD = 'inetz123';
@@ -28,14 +30,12 @@ const Form = () => {
     e.preventDefault();
     let newErrors = {};
 
-    //checking email
     if (!email) {
       newErrors.email = 'Email is required';
     } else if (!validateEmail(email)) {
       newErrors.email = 'Please enter a valid email';
     }
 
-    //checking password
     if (!password) {
       newErrors.password = 'Password is required';
     } else if (!validatePassword(password)) {
@@ -47,9 +47,7 @@ const Form = () => {
       return;
     }
 
-  
     setErrors({});
-    //checking credentials 
 
     if (email === EMAIL && password === PASSWORD) {
       localStorage.setItem('isLoggedIn', 'true');
@@ -79,17 +77,34 @@ const Form = () => {
           {errors.email && <p className="auth-message">{errors.email}</p>}
 
           <label>Password <span className="indicate">*</span></label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            className={errors.password ? 'input-error' : ''}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Enter your password"
+              value={password}
+              className={errors.password ? 'input-error' : ''}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ flex: 1, paddingRight: '40px' }}
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: 'absolute',
+                right: '10px',
+                cursor: 'pointer',
+                fontSize: '18px',
+                color: '#555'
+              }}
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </span>
+          </div>
           {errors.password && <p className="auth-message">{errors.password}</p>}
 
           <button type="submit">Sign In</button>
         </form>
+
         {message && <p className="auth-message">{message}</p>}
         <p className="note">Please enter your admin credentials to access the dashboard</p>
       </div>
