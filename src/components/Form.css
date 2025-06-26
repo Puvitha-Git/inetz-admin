@@ -97,16 +97,7 @@ select {
   font-size: 14px;
   outline: none;
 }
-.indicate{
-  color: red;
-  font-size: 18px;
-  font-weight: 100;
-  margin-left: 5px;
-  display: inline-block;
-  margin-top: 5px;
-  margin-bottom: 5px;
 
-}
 .auth-message {
    color: red;
   font-size: 16px;
@@ -128,4 +119,14 @@ select {
 
 .toggle-password {
   user-select: none;
+}
+.indicate {
+  color: red;
+  font-weight: bold;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin: 4px 0 8px 0;
 }

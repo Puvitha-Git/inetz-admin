@@ -3,23 +3,13 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Stud from '../assets/stud.png';
 
-
 const AddStudentPage = () => {
-    
   const [studentName, setStudentName] = useState('');
   const [type, setType] = useState('');
   const [duration, setDuration] = useState('');
   const [domain, setDomain] = useState('');
   const [specificDomain, setSpecificDomain] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Student Name:', studentName);
-    console.log('Type:', type);
-    console.log('Duration:', duration);
-    console.log('Main Domain:', domain);
-    console.log('Specific Domain:', specificDomain);
-  };
+  const [errors, setErrors] = useState({});
 
   const courseDurations = ['3 Months', '6 Months', '1 Year'];
   const internshipDurations = ['15 Days', '1 Month', '3 Months'];
@@ -31,6 +21,7 @@ const AddStudentPage = () => {
     'Digital Marketing',
     'Software Testing'
   ];
+
   const internshipDomains = ['Web Development', 'IoT', 'AI'];
 
   const courseSpecificDomains = {
@@ -42,21 +33,17 @@ const AddStudentPage = () => {
   };
 
   const internshipSpecificDomains = {
-    'Web Development': ['Java Internship', 'MERN Stack Internship', 'Python Internship'],
-    'AI': ['Artificial Intelligence Internship'],
-    'IoT': ['Embedded IoT Internship']
+    'Web Development': ['Java Full Stack', 'MERN Full Stack', 'Python Full Stack'],
+    'AI': ['Artificial Intelligence', 'Data Science'],
+    'IoT': ['Embedded IoT ']
   };
 
   const getDurationOptions = () => {
-    if (type === 'Course') return courseDurations;
-    if (type === 'Internship') return internshipDurations;
-    return [];
+    return type === 'Course' ? courseDurations : type === 'Internship' ? internshipDurations : [];
   };
 
   const getDomainOptions = () => {
-    if (type === 'Course') return courseDomains;
-    if (type === 'Internship') return internshipDomains;
-    return [];
+    return type === 'Course' ? courseDomains : type === 'Internship' ? internshipDomains : [];
   };
 
   const getSpecificDomains = () => {
@@ -65,93 +52,149 @@ const AddStudentPage = () => {
     return [];
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let newErrors = {};
+    if (!studentName.trim()) newErrors.studentName = 'Student Name is required';
+    if (!type) newErrors.type = 'Please select Course or Internship';
+    if (!duration) newErrors.duration = 'Please select a duration';
+    if (!domain) newErrors.domain = 'Please select a main domain';
+    if (!specificDomain) newErrors.specificDomain = 'Please select a specific domain';
+
+    setErrors(newErrors);
+
+    if (Object.keys(newErrors).length === 0) {
+      console.log('Student Name:', studentName);
+      console.log('Type:', type);
+      console.log('Duration:', duration);
+      console.log('Main Domain:', domain);
+      console.log('Specific Domain:', specificDomain);
+      alert("Certificate ready to download!");
+      window.location.reload();
+    }
+  };
+
   return (
     <>
       <Navbar />
       <div className="form-container">
         <div className="form-box">
-            <div className="form-icon">
-                <img src={Stud} alt="lock icon" className="lock" />
-            </div>
+          <div className="form-icon">
+            <img src={Stud} alt="student icon" className="lock" />
+          </div>
           <h2>Add Student Details</h2>
           <form onSubmit={handleSubmit}>
-            <label>Student Name <span className="indicate">*</span></label>
+            <label>
+              Student Name <span className="indicate">*</span>
+            </label>
             <input
               type="text"
               placeholder="Enter name"
               value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
-              required
+              onChange={(e) => {
+                setStudentName(e.target.value);
+                if (e.target.value.trim() !== '') {
+                  setErrors(prev => ({ ...prev, studentName: '' }));
+                }
+              }}
             />
+            {errors.studentName && <p className="error">{errors.studentName}</p>}
 
-            <label>Preferred Domain<span className="indicate">*</span></label>
+            <label>
+              Preferred Domain <span className="indicate">*</span>
+            </label>
             <select
               value={type}
               onChange={(e) => {
-                setType(e.target.value);
+                const val = e.target.value;
+                setType(val);
                 setDuration('');
                 setDomain('');
                 setSpecificDomain('');
+                if (val) {
+                  setErrors(prev => ({ ...prev, type: '' }));
+                }
               }}
-              required
             >
-              <option value="" disabled hidden>Course or Internship </option>
+              <option value="" disabled hidden>Course or Internship</option>
               <option value="Course">Course</option>
               <option value="Internship">Internship</option>
             </select>
+            {errors.type && <p className="error">{errors.type}</p>}
 
             {type && (
               <>
-                <label>Duration <span className="indicate">*</span></label>
+                <label>
+                  Duration <span className="indicate">*</span>
+                </label>
                 <select
                   value={duration}
                   onChange={(e) => {
-                    setDuration(e.target.value);
+                    const val = e.target.value;
+                    setDuration(val);
                     setDomain('');
                     setSpecificDomain('');
+                    if (val) {
+                      setErrors(prev => ({ ...prev, duration: '' }));
+                    }
                   }}
-                  required
                 >
-                  <option value="" disabled hidden>Select Duration <span className="indicate">*</span></option>
+                  <option value="" disabled hidden>Select Duration</option>
                   {getDurationOptions().map((d, i) => (
                     <option key={i} value={d}>{d}</option>
                   ))}
                 </select>
+                {errors.duration && <p className="error">{errors.duration}</p>}
               </>
             )}
 
             {duration && (
               <>
-                <label>Main Domain *</label>
+                <label>
+                  Main Domain <span className="indicate">*</span>
+                </label>
                 <select
                   value={domain}
                   onChange={(e) => {
-                    setDomain(e.target.value);
+                    const val = e.target.value;
+                    setDomain(val);
                     setSpecificDomain('');
+                    if (val) {
+                      setErrors(prev => ({ ...prev, domain: '' }));
+                    }
                   }}
-                  required
                 >
-                  <option value="" disabled hidden>Select Domain <span className="indicate">*</span></option>
+                  <option value="" disabled hidden>Select Domain</option>
                   {getDomainOptions().map((d, i) => (
                     <option key={i} value={d}>{d}</option>
                   ))}
                 </select>
+                {errors.domain && <p className="error">{errors.domain}</p>}
               </>
             )}
 
             {domain && getSpecificDomains().length > 0 && (
               <>
-                <label>Specific Domain *</label>
+                <label>
+                  Specific Domain <span className="indicate">*</span>
+                </label>
                 <select
                   value={specificDomain}
-                  onChange={(e) => setSpecificDomain(e.target.value)}
-                  required
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setSpecificDomain(val);
+                    if (val) {
+                      setErrors(prev => ({ ...prev, specificDomain: '' }));
+                    }
+                  }}
                 >
-                  <option value="" disabled hidden>Select Specific Domain <span className="indicate">*</span></option>
+                  <option value="" disabled hidden>Select Specific Domain</option>
                   {getSpecificDomains().map((d, i) => (
                     <option key={i} value={d}>{d}</option>
                   ))}
                 </select>
+                {errors.specificDomain && <p className="error">{errors.specificDomain}</p>}
               </>
             )}
 
