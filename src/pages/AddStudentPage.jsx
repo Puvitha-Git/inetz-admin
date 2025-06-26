@@ -71,7 +71,7 @@ const AddStudentPage = () => {
       console.log('Main Domain:', domain);
       console.log('Specific Domain:', specificDomain);
       alert("Certificate ready to download!");
-      window.location.reload();
+      
     }
   };
 
