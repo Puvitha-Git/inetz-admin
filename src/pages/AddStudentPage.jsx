@@ -102,7 +102,7 @@ const AddStudentPage = () => {
               value={studentName}
               onChange={(e) => {
                 setStudentName(e.target.value);
-                if (e.target.value.trim()) setErrors(prev => ({ ...prev, studentName: '' }));
+                if (e.target.value.trim()) setErrors((prev) => ({ ...prev, studentName: '' }));
               }}
             />
             {errors.studentName && <p className="error">{errors.studentName}</p>}
@@ -201,10 +201,9 @@ const AddStudentPage = () => {
                 <select
                   value={domain}
                   onChange={(e) => {
-                    const val = e.target.value;
-                    setDomain(val);
+                    setDomain(e.target.value);
                     setSpecificDomain('');
-                    if (val) setErrors(prev => ({ ...prev, domain: '' }));
+                    if (e.target.value) setErrors(prev => ({ ...prev, domain: '' }));
                   }}
                 >
                   <option value="" disabled hidden>Select Domain</option>
@@ -236,7 +235,7 @@ const AddStudentPage = () => {
               </>
             )}
 
-            <button type="submit">Download Certificate</button>
+            <button type="submit">Submit Students Details</button>
           </form>
         </div>
       </div>

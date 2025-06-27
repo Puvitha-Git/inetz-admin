@@ -63,7 +63,7 @@ const Form = () => {
         <div className="form-icon">
           <img src={lock} alt="lock icon" className="lock" />
         </div>
-        <h2>Admin Login</h2>
+        <h2>Staff Login</h2>
         <p className="subtitle">Welcome back! Please sign in to continue.</p>
         <form onSubmit={handleSubmit}>
           <label>Email Address <span className="indicate">*</span></label>
@@ -106,7 +106,7 @@ const Form = () => {
         </form>
 
         {message && <p className="auth-message">{message}</p>}
-        <p className="note">Please enter your admin credentials to access the dashboard</p>
+        <p className="note">Please enter your staff credentials to access the dashboard</p>
       </div>
     </div>
   );

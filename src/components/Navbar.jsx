@@ -7,7 +7,8 @@ const Navbar = () => {
       <div className="navbar-left">
         <img src={logo} alt="Logo" className="logo" />
       </div>
-      <button className="admin-button">Admin Portal</button>
+      <button className="admin-button">Staff Portal</button>
+
     </header>
   );
 };
