@@ -97,7 +97,7 @@ const Form = () => {
                 color: '#555'
               }}
             >
-              {showPassword ? <FiEyeOff /> : <FiEye />}
+              {showPassword ? <FiEye /> : <FiEyeOff />}
             </span>
           </div>
           {errors.password && <p className="auth-message">{errors.password}</p>}

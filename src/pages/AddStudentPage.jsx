@@ -195,6 +195,7 @@ const AddStudentPage = () => {
               </>
             )}
 
+            
             {duration && (
               <>
                 <label>Main Domain <span className="indicate">*</span></label>
