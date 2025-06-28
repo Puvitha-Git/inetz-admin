@@ -107,7 +107,7 @@ const AddStudentPage = () => {
               value={studentName}
               onChange={(e) => {
                 setStudentName(e.target.value);
-                if (e.target.value.trim()) setErrors((prev) => ({ ...prev, studentName: '' }));
+                setErrors('');
               }}
             />
             {errors.studentName && <p className="error">{errors.studentName}</p>}
@@ -119,7 +119,7 @@ const AddStudentPage = () => {
               value={registerNo}
               onChange={(e) => {
                 setRegisterNo(e.target.value);
-                if (e.target.value.trim()) setErrors(prev => ({ ...prev, registerNo: '' }));
+               setErrors('');
               }}
             />
             {errors.registerNo && <p className="error">{errors.registerNo}</p>}
@@ -131,7 +131,7 @@ const AddStudentPage = () => {
               value={collegeName}
               onChange={(e) => {
                 setCollegeName(e.target.value);
-                if (e.target.value.trim()) setErrors(prev => ({ ...prev, collegeName: '' }));
+                setErrors('');
               }}
             />
             {errors.collegeName && <p className="error">{errors.collegeName}</p>}
@@ -143,7 +143,8 @@ const AddStudentPage = () => {
               value={department}
               onChange={(e) => {
                 setDepartment(e.target.value);
-                if (e.target.value.trim()) setErrors(prev => ({ ...prev, department: '' }));
+        
+                  setErrors('');
               }}
             />
             {errors.department && <p className="error">{errors.department}</p>}
@@ -155,7 +156,7 @@ const AddStudentPage = () => {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                if (/\S+@\S+\.\S+/.test(e.target.value)) setErrors(prev => ({ ...prev, email: '' }));
+                setErrors('');
               }}
             />
             {errors.email && <p className="error">{errors.email}</p>}

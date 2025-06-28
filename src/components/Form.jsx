@@ -25,6 +25,17 @@ const Form = () => {
     const hasNumber = /\d/.test(password);
     return hasNumber;
   };
+  const handleEvent = (e) => {
+  const { name, value } = e.target;
+  if (name === 'email') {
+    setEmail(value);
+    setMessage('');
+  } 
+  else if (name === 'password') {
+    setPassword(value);
+    setMessage('');
+  }
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,10 +80,11 @@ const Form = () => {
           <label>Email Address <span className="indicate">*</span></label>
           <input
             type="text"
+            name="email"
             placeholder="Enter your email"
             value={email}
             className={errors.email ? 'input-error' : ''}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEvent}
           />
           {errors.email && <p className="auth-message">{errors.email}</p>}
 
@@ -80,10 +92,11 @@ const Form = () => {
           <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
             <input
               type={showPassword ? 'text' : 'password'}
+              name="password"
               placeholder="Enter your password"
               value={password}
               className={errors.password ? 'input-error' : ''}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleEvent}
               style={{ flex: 1, paddingRight: '40px' }}
             />
             <span
