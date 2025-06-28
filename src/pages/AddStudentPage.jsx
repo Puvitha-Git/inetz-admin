@@ -13,6 +13,8 @@ const AddStudentPage = () => {
   const [duration, setDuration] = useState('');
   const [domain, setDomain] = useState('');
   const [specificDomain, setSpecificDomain] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [errors, setErrors] = useState({});
 
   const courseDurations = ['3 Months', '6 Months'];
@@ -65,6 +67,8 @@ const AddStudentPage = () => {
     if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) newErrors.email = 'Valid Email is required';
     if (!type) newErrors.type = 'Please select Course or Internship';
     if (!duration) newErrors.duration = 'Please select a duration';
+    if (!startDate) newErrors.startDate = 'Start Date is required';
+    if (!endDate) newErrors.endDate = 'End Date is required';
     if (!domain) newErrors.domain = 'Please select a main domain';
     if (!specificDomain) newErrors.specificDomain = 'Please select a specific domain';
 
@@ -78,10 +82,11 @@ const AddStudentPage = () => {
       console.log('Email:', email);
       console.log('Type:', type);
       console.log('Duration:', duration);
+      console.log('Start Date:', startDate);
+      console.log('End Date:', endDate);
       console.log('Main Domain:', domain);
       console.log('Specific Domain:', specificDomain);
       alert('Certificate ready to download!');
-      
     }
   };
 
@@ -162,6 +167,8 @@ const AddStudentPage = () => {
                 const val = e.target.value;
                 setType(val);
                 setDuration('');
+                setStartDate('');
+                setEndDate('');
                 setDomain('');
                 setSpecificDomain('');
                 if (val) setErrors(prev => ({ ...prev, type: '' }));
@@ -181,6 +188,8 @@ const AddStudentPage = () => {
                   onChange={(e) => {
                     const val = e.target.value;
                     setDuration(val);
+                    setStartDate('');
+                    setEndDate('');
                     setDomain('');
                     setSpecificDomain('');
                     if (val) setErrors(prev => ({ ...prev, duration: '' }));
@@ -195,7 +204,32 @@ const AddStudentPage = () => {
               </>
             )}
 
-            
+            {duration && (
+              <>
+                <label>Start Date <span className="indicate">*</span></label>
+                <input
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                    if (e.target.value) setErrors(prev => ({ ...prev, startDate: '' }));
+                  }}
+                />
+                {errors.startDate && <p className="error">{errors.startDate}</p>}
+
+                <label>End Date <span className="indicate">*</span></label>
+                <input
+                  type="date"
+                  value={endDate}
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                    if (e.target.value) setErrors(prev => ({ ...prev, endDate: '' }));
+                  }}
+                />
+                {errors.endDate && <p className="error">{errors.endDate}</p>}
+              </>
+            )}
+
             {duration && (
               <>
                 <label>Main Domain <span className="indicate">*</span></label>
