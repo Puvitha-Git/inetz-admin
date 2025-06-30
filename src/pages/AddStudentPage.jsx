@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Stud from '../assets/stud.png';
+import {
+  Box,
+  Paper,
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  FormHelperText,
+} from '@mui/material';
 
 const AddStudentPage = () => {
   const [studentName, setStudentName] = useState('');
@@ -93,188 +105,248 @@ const AddStudentPage = () => {
   return (
     <>
       <Navbar />
-      <div className="form-container">
-        <div className="form-box">
-          <div className="form-icon">
-            <img src={Stud} alt="student icon" className="lock" />
-          </div>
-          <h2>Add Student Details</h2>
-          <form onSubmit={handleSubmit}>
-            <label>Student Name <span className="indicate">*</span></label>
-            <input
-              type="text"
-              placeholder="Enter name"
+      <Box
+        sx={{
+          minHeight: '100vh',
+          background: 'linear-gradient(135deg,#f1f0f1, #f1f0f1)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          py: 4,
+          fontFamily: `'Segoe UI', sans-serif`,
+        }}
+      >
+        <Paper
+          elevation={10}
+          sx={{
+            p: 4,
+            width: '100%',
+            maxWidth: 600,
+            borderRadius: 2,
+          }}
+        >
+          <Box textAlign="center" mb={3}>
+            <img src={Stud} alt="student icon" style={{ width: 70, height: 70 }} />
+            <Typography variant="h5" sx={{ mt: 2, color: '#222' }}>
+              Add Student Details
+            </Typography>
+          </Box>
+
+          <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={2}>
+            <TextField
+              label="Student Name"
+              name="studentName"
               value={studentName}
-              onChange={(e) => {
-                setStudentName(e.target.value);
+              onChange={(e) => {setStudentName(e.target.value)
                 setErrors('');
-              }}
+              }
+              }
+              error={!!errors.studentName}
+              helperText={errors.studentName}
+              size="small"
             />
-            {errors.studentName && <p className="error">{errors.studentName}</p>}
 
-            <label>Register Number <span className="indicate">*</span></label>
-            <input
-              type="text"
-              placeholder="Enter register number"
+            <TextField
+              label="Register Number"
+              name="registerNo"
               value={registerNo}
-              onChange={(e) => {
-                setRegisterNo(e.target.value);
-               setErrors('');
-              }}
-            />
-            {errors.registerNo && <p className="error">{errors.registerNo}</p>}
-
-            <label>College Name <span className="indicate">*</span></label>
-            <input
-              type="text"
-              placeholder="Enter college name"
-              value={collegeName}
-              onChange={(e) => {
-                setCollegeName(e.target.value);
+              onChange={(e) => {setRegisterNo(e.target.value);
                 setErrors('');
-              }}
+              }
+              }
+              error={!!errors.registerNo}
+              helperText={errors.registerNo}
+              size="small"
             />
-            {errors.collegeName && <p className="error">{errors.collegeName}</p>}
 
-            <label>Department <span className="indicate">*</span></label>
-            <input
-              type="text"
-              placeholder="Enter department"
+            <TextField
+              label="College Name"
+              name="collageName"
+              value={collegeName}
+              onChange={(e) => {setCollegeName(e.target.value);
+                setErrors('');
+              }
+              }
+              error={!!errors.collegeName}
+              helperText={errors.collegeName}
+              size="small"
+            />
+
+            <TextField
+              label="Department"
+              name="department"
               value={department}
               onChange={(e) => {
                 setDepartment(e.target.value);
-        
-                  setErrors('');
-              }}
+                setErrors('');
+              }
+              }
+              error={!!errors.department}
+              helperText={errors.department}
+              size="small"
             />
-            {errors.department && <p className="error">{errors.department}</p>}
 
-            <label>Email <span className="indicate">*</span></label>
-            <input
-              type="email"
-              placeholder="Enter email"
+            <TextField
+              label="Email"
+              name="email"
+              
               value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
+              onChange={(e) => 
+                {setEmail(e.target.value);
                 setErrors('');
               }}
+              error={!!errors.email}
+              helperText={errors.email}
+              size="small"
+              
             />
-            {errors.email && <p className="error">{errors.email}</p>}
 
-            <label>Preferred Domain <span className="indicate">*</span></label>
-            <select
-              value={type}
-              onChange={(e) => {
-                const val = e.target.value;
-                setType(val);
-                setDuration('');
-                setStartDate('');
-                setEndDate('');
-                setDomain('');
-                setSpecificDomain('');
-                if (val) setErrors(prev => ({ ...prev, type: '' }));
-              }}
-            >
-              <option value="" disabled hidden>Course or Internship</option>
-              <option value="Course">Course</option>
-              <option value="Internship">Internship</option>
-            </select>
-            {errors.type && <p className="error">{errors.type}</p>}
+            <FormControl fullWidth size="small" error={!!errors.type}>
+              <InputLabel>Preferred Domain *</InputLabel>
+              <Select
+                value={type}
+                label="Preferred Domain *"
+                onChange={(e) => {
+                  setType(e.target.value);
+                  setDuration('');
+                  setStartDate('');
+                  setEndDate('');
+                  setDomain('');
+                  setSpecificDomain('');
+                  if (e.target.value) setErrors((prev) => ({ ...prev, type: '' }));
+                }}
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value="Course">Course</MenuItem>
+                <MenuItem value="Internship">Internship</MenuItem>
+              </Select>
+              {errors.type && <FormHelperText>{errors.type}</FormHelperText>}
+            </FormControl>
 
             {type && (
-              <>
-                <label>Duration <span className="indicate">*</span></label>
-                <select
+              <FormControl fullWidth size="small" error={!!errors.duration}>
+                <InputLabel>Duration *</InputLabel>
+                <Select
                   value={duration}
+                  label="Duration *"
                   onChange={(e) => {
-                    const val = e.target.value;
-                    setDuration(val);
+                    setDuration(e.target.value);
                     setStartDate('');
                     setEndDate('');
                     setDomain('');
                     setSpecificDomain('');
-                    if (val) setErrors(prev => ({ ...prev, duration: '' }));
+                    if (e.target.value) setErrors((prev) => ({ ...prev, duration: '' }));
                   }}
                 >
-                  <option value="" disabled hidden>Select Duration</option>
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   {getDurationOptions().map((d, i) => (
-                    <option key={i} value={d}>{d}</option>
+                    <MenuItem key={i} value={d}>
+                      {d}
+                    </MenuItem>
                   ))}
-                </select>
-                {errors.duration && <p className="error">{errors.duration}</p>}
-              </>
+                </Select>
+                {errors.duration && <FormHelperText>{errors.duration}</FormHelperText>}
+              </FormControl>
             )}
 
             {duration && (
               <>
-                <label>Start Date <span className="indicate">*</span></label>
-                <input
+                <TextField
+                  label="Start Date"
                   type="date"
                   value={startDate}
                   onChange={(e) => {
                     setStartDate(e.target.value);
-                    if (e.target.value) setErrors(prev => ({ ...prev, startDate: '' }));
+                    if (e.target.value) setErrors((prev) => ({ ...prev, startDate: '' }));
                   }}
+                  InputLabelProps={{ shrink: true }}
+                  error={!!errors.startDate}
+                  helperText={errors.startDate}
+                  size="small"
+                  fullWidth
                 />
-                {errors.startDate && <p className="error">{errors.startDate}</p>}
 
-                <label>End Date <span className="indicate">*</span></label>
-                <input
+                <TextField
+                  label="End Date"
                   type="date"
                   value={endDate}
                   onChange={(e) => {
                     setEndDate(e.target.value);
-                    if (e.target.value) setErrors(prev => ({ ...prev, endDate: '' }));
+                    if (e.target.value) setErrors((prev) => ({ ...prev, endDate: '' }));
                   }}
+                  InputLabelProps={{ shrink: true }}
+                  error={!!errors.endDate}
+                  helperText={errors.endDate}
+                  size="small"
+                  fullWidth
                 />
-                {errors.endDate && <p className="error">{errors.endDate}</p>}
               </>
             )}
 
             {duration && (
-              <>
-                <label>Main Domain <span className="indicate">*</span></label>
-                <select
+              <FormControl fullWidth size="small" error={!!errors.domain}>
+                <InputLabel>Main Domain *</InputLabel>
+                <Select
                   value={domain}
+                  label="Main Domain *"
                   onChange={(e) => {
                     setDomain(e.target.value);
                     setSpecificDomain('');
-                    if (e.target.value) setErrors(prev => ({ ...prev, domain: '' }));
+                    if (e.target.value) setErrors((prev) => ({ ...prev, domain: '' }));
                   }}
                 >
-                  <option value="" disabled hidden>Select Domain</option>
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   {getDomainOptions().map((d, i) => (
-                    <option key={i} value={d}>{d}</option>
+                    <MenuItem key={i} value={d}>
+                      {d}
+                    </MenuItem>
                   ))}
-                </select>
-                {errors.domain && <p className="error">{errors.domain}</p>}
-              </>
+                </Select>
+                {errors.domain && <FormHelperText>{errors.domain}</FormHelperText>}
+              </FormControl>
             )}
 
             {domain && getSpecificDomains().length > 0 && (
-              <>
-                <label>Specific Domain <span className="indicate">*</span></label>
-                <select
+              <FormControl fullWidth size="small" error={!!errors.specificDomain}>
+                <InputLabel>Specific Domain *</InputLabel>
+                <Select
                   value={specificDomain}
+                  label="Specific Domain *"
                   onChange={(e) => {
-                    const val = e.target.value;
-                    setSpecificDomain(val);
-                    if (val) setErrors(prev => ({ ...prev, specificDomain: '' }));
+                    setSpecificDomain(e.target.value);
+                    if (e.target.value) setErrors((prev) => ({ ...prev, specificDomain: '' }));
                   }}
                 >
-                  <option value="" disabled hidden>Select Specific Domain</option>
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
                   {getSpecificDomains().map((d, i) => (
-                    <option key={i} value={d}>{d}</option>
+                    <MenuItem key={i} value={d}>
+                      {d}
+                    </MenuItem>
                   ))}
-                </select>
-                {errors.specificDomain && <p className="error">{errors.specificDomain}</p>}
-              </>
+                </Select>
+                {errors.specificDomain && <FormHelperText>{errors.specificDomain}</FormHelperText>}
+              </FormControl>
             )}
 
-            <button type="submit">Submit Students Details</button>
-          </form>
-        </div>
-      </div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ fontWeight: 'bold', mt: 2, textTransform: 'none' }}
+            >
+              Submit Student Details
+            </Button>
+          </Box>
+        </Paper>
+      </Box>
       <Footer />
     </>
   );

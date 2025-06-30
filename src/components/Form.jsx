@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import lock from '../assets/lock.jpeg';
-import './Form.css';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import lock from '../assets/lock.jpeg';
 
 const Form = () => {
   const navigate = useNavigate();
@@ -25,17 +31,17 @@ const Form = () => {
     const hasNumber = /\d/.test(password);
     return hasNumber;
   };
+
   const handleEvent = (e) => {
-  const { name, value } = e.target;
-  if (name === 'email') {
-    setEmail(value);
-    setMessage('');
-  } 
-  else if (name === 'password') {
-    setPassword(value);
-    setMessage('');
-  }
-};
+    const { name, value } = e.target;
+    if (name === 'email') {
+      setEmail(value);
+      setMessage('');
+    } else if (name === 'password') {
+      setPassword(value);
+      setMessage('');
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -69,59 +75,121 @@ const Form = () => {
   };
 
   return (
-    <div className="form-container">
-      <div className="form-box">
-        <div className="form-icon">
-          <img src={lock} alt="lock icon" className="lock" />
-        </div>
-        <h2>Staff Login</h2>
-        <p className="subtitle">Welcome back! Please sign in to continue.</p>
-        <form onSubmit={handleSubmit}>
-          <label>Email Address <span className="indicate">*</span></label>
-          <input
-            type="text"
+    <Box
+      sx={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f1f0f1, #f1f0f1)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontFamily: `'Segoe UI', sans-serif`,
+      }}
+    >
+      <Paper
+        elevation={10}
+        sx={{
+          padding: '40px 30px',
+          borderRadius: '12px',
+          maxWidth: 400,
+          width: '100%',
+          textAlign: 'center',
+        }}
+      >
+        <Box sx={{ mb: 2 }}>
+          <img src={lock} alt="lock icon" style={{ width: 70, height: 70 }} />
+        </Box>
+        <Typography variant="h5" sx={{ mb: 1, color: '#222' }}>
+          Staff Login
+        </Typography>
+        <Typography variant="body2" sx={{ color: '#666', mb: 3 }}>
+          Welcome back! Please sign in to continue.
+        </Typography>
+
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            textAlign: 'left',
+          }}
+        >
+          <TextField
+            label={
+              <>
+                Email Address <span style={{ color: 'red' }}>*</span>
+              </>
+            }
+            variant="outlined"
+            fullWidth
             name="email"
-            placeholder="Enter your email"
             value={email}
-            className={errors.email ? 'input-error' : ''}
             onChange={handleEvent}
+            error={Boolean(errors.email)}
+            helperText={errors.email}
+            size="small"
           />
-          {errors.email && <p className="auth-message">{errors.email}</p>}
 
-          <label>Password <span className="indicate">*</span></label>
-          <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              name="password"
-              placeholder="Enter your password"
-              value={password}
-              className={errors.password ? 'input-error' : ''}
-              onChange={handleEvent}
-              style={{ flex: 1, paddingRight: '40px' }}
-            />
-            <span
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-              style={{
-                position: 'absolute',
-                right: '10px',
-                cursor: 'pointer',
-                fontSize: '18px',
-                color: '#555'
-              }}
-            >
-              {showPassword ? <FiEye /> : <FiEyeOff />}
-            </span>
-          </div>
-          {errors.password && <p className="auth-message">{errors.password}</p>}
+          <TextField
+            label={
+              <>
+                Password <span style={{ color: 'red' }}>*</span>
+              </>
+            }
+            variant="outlined"
+            fullWidth
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            value={password}
+            onChange={handleEvent}
+            error={Boolean(errors.password)}
+            helperText={errors.password}
+            size="small"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    {showPassword ? <FiEye /> : <FiEyeOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
 
-          <button type="submit">Sign In</button>
-        </form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            sx={{
+              fontWeight: 'bold',
+              mt: 1,
+              textTransform: 'none',
+            }}
+          >
+            Sign In
+          </Button>
+        </Box>
 
-        {message && <p className="auth-message">{message}</p>}
-        <p className="note">Please enter your staff credentials to access the dashboard</p>
-      </div>
-    </div>
+        {message && (
+          <Typography
+            variant="body2"
+            sx={{ color: '#ff4d4f', mt: 2, fontWeight: 'bold' }}
+          >
+            {message}
+          </Typography>
+        )}
+        <Typography
+          variant="caption"
+          sx={{ color: '#888', display: 'block', mt: 3 }}
+        >
+          Please enter your staff credentials to access the dashboard.
+        </Typography>
+      </Paper>
+    </Box>
   );
 };
 
