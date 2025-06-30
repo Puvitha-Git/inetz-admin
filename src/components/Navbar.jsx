@@ -11,6 +11,11 @@ const Logo = styled('img')(({ theme }) => ({
   height: 50,
   marginLeft: 40,
   paddingTop: 0,
+  [theme.breakpoints.down('sm')]: {
+    width: 60,
+    height: 40,
+    marginLeft: 10,
+  },
 }));
 
 const PortalButton = styled(Button)(({ theme }) => ({
@@ -25,6 +30,11 @@ const PortalButton = styled(Button)(({ theme }) => ({
   '&:hover': {
     backgroundColor: '#d24900d0',
   },
+  [theme.breakpoints.down('sm')]: {
+    marginRight: 10,
+    fontSize: 14,
+    padding: '6px 12px',
+  },
 }));
 
 const Navbar = () => {
@@ -33,7 +43,7 @@ const Navbar = () => {
       position="static"
       elevation={4}
       sx={{
-        backgroundImage: 'linear-gradient(90deg, #fff,rgb(245, 206, 156))', 
+        backgroundImage: 'linear-gradient(90deg, #fff, rgb(245, 206, 156))',
         color: '#000',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
         fontFamily: `'Segoe UI', sans-serif`,
@@ -43,9 +53,7 @@ const Navbar = () => {
         <Box display="flex" alignItems="center">
           <Logo src={logo} alt="Logo" />
         </Box>
-        <PortalButton variant="contained">
-          Portal
-        </PortalButton>
+        <PortalButton variant="contained">Portal</PortalButton>
       </Toolbar>
     </AppBar>
   );
