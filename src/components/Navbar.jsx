@@ -43,7 +43,7 @@ const Navbar = () => {
       position="static"
       elevation={4}
       sx={{
-        backgroundImage: 'linear-gradient(90deg, #fff, rgb(245, 206, 156))',
+        background: 'linear-gradient(90deg, #fff)',
         color: '#000',
         boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
         fontFamily: `'Segoe UI', sans-serif`,

@@ -188,10 +188,10 @@ const AddStudentPage = () => {
 
             <TextField
               label={
-    <span>
-       Registration No <span style={{ color: 'red' }}>*</span>
-    </span>
-  }
+                <span>
+                  Registration No <span style={{ color: "red" }}>*</span>
+                </span>
+              }
               name="registerNo"
               value={registerNo}
               onChange={(e) => {
@@ -205,10 +205,10 @@ const AddStudentPage = () => {
 
             <TextField
               label={
-    <span>
-      Collage Name <span style={{ color: 'red' }}>*</span>
-    </span>
-  }
+                <span>
+                  Collage Name <span style={{ color: "red" }}>*</span>
+                </span>
+              }
               name="collageName"
               value={collegeName}
               onChange={(e) => {
@@ -222,10 +222,10 @@ const AddStudentPage = () => {
 
             <TextField
               label={
-    <span>
-      Department <span style={{ color: 'red' }}>*</span>
-    </span>
-  }
+                <span>
+                  Department <span style={{ color: "red" }}>*</span>
+                </span>
+              }
               name="department"
               value={department}
               onChange={(e) => {
@@ -239,10 +239,10 @@ const AddStudentPage = () => {
 
             <TextField
               label={
-    <span>
-      Email <span style={{ color: 'red' }}>*</span>
-    </span>
-  }
+                <span>
+                  Email <span style={{ color: "red" }}>*</span>
+                </span>
+              }
               name="email"
               value={email}
               onChange={(e) => {
@@ -359,7 +359,6 @@ const AddStudentPage = () => {
                       setErrors((prev) => ({ ...prev, domain: "" }));
                   }}
                 >
-                 
                   {getDomainOptions().map((d, i) => (
                     <MenuItem key={i} value={d}>
                       {d}
@@ -390,7 +389,6 @@ const AddStudentPage = () => {
                       setErrors((prev) => ({ ...prev, specificDomain: "" }));
                   }}
                 >
-                  
                   {getSpecificDomains().map((d, i) => (
                     <MenuItem key={i} value={d}>
                       {d}
