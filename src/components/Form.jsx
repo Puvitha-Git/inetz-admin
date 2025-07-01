@@ -100,7 +100,7 @@ const Form = () => {
           <img src={lock} alt="lock icon" style={{ width: 70, height: 70 }} />
         </Box>
         <Typography variant="h5" sx={{ mb: 1, color: '#222' }}>
-          Staff Login
+          Login
         </Typography>
         <Typography variant="body2" sx={{ color: '#666', mb: 3 }}>
           Welcome back! Please sign in to continue.
