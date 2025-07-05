@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Stud from '../assets/stud.png';
@@ -14,10 +15,6 @@ import {
   Button,
   FormHelperText,
 } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
-
-// Dummy list (replace with your real data)
-
 
 const AddStudentPage = () => {
   const [formData, setFormData] = useState({
@@ -35,18 +32,12 @@ const AddStudentPage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const courseDurations = ['3 Months', '6 Months'];
   const internshipDurations = ['15 Days', '1 Month', '3 Months'];
 
-  const courseDomains = [
-    'Web Technology',
-    'Mobile Apps',
-    'Artificial Intelligence',
-    'Digital Marketing',
-    'Software Testing'
-  ];
-
+  const courseDomains = ['Web Technology', 'Mobile Apps', 'Artificial Intelligence', 'Digital Marketing', 'Software Testing'];
   const internshipDomains = ['Web Development', 'IoT', 'AI'];
 
   const courseSpecificDomains = {
@@ -60,7 +51,7 @@ const AddStudentPage = () => {
   const internshipSpecificDomains = {
     'Web Development': ['Java Full Stack', 'MERN Full Stack', 'Python Full Stack'],
     'AI': ['Artificial Intelligence', 'Data Science', 'Python'],
-    'IoT': ['Embedded IoT ']
+    'IoT': ['Embedded IoT']
   };
 
   const getDurationOptions = () =>
@@ -80,54 +71,29 @@ const AddStudentPage = () => {
   const handleChange = (name, value) => {
     let newFormData = { ...formData, [name]: value };
 
-    
     if (name === 'type') {
-      newFormData = {
-        ...newFormData,
-        duration: '',
-        startDate: '',
-        endDate: '',
-        domain: '',
-        specificDomain: ''
-      };
+      newFormData = { ...newFormData, duration: '', startDate: '', endDate: '', domain: '', specificDomain: '' };
     }
     if (name === 'duration') {
-      newFormData = {
-        ...newFormData,
-        startDate: '',
-        endDate: '',
-        domain: '',
-        specificDomain: ''
-      };
+      newFormData = { ...newFormData, startDate: '', endDate: '', domain: '', specificDomain: '' };
     }
     if (name === 'domain') {
-      newFormData = {
-        ...newFormData,
-        specificDomain: ''
-      };
+      newFormData = { ...newFormData, specificDomain: '' };
     }
 
     setFormData(newFormData);
-
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
+    if (errors[name]) setErrors(prev => ({ ...prev, [name]: '' }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const newErrors = {};
 
     if (!formData.studentName.trim()) newErrors.studentName = 'Student Name is required';
     if (!formData.registerNo.trim()) newErrors.registerNo = 'Register Number is required';
     if (!formData.collegeName.trim()) newErrors.collegeName = 'College Name is required';
     if (!formData.department.trim()) newErrors.department = 'Department is required';
-    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Valid Email is required';
-    }
+    if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Valid Email is required';
     if (!formData.type) newErrors.type = 'Please select Course or Internship';
     if (!formData.duration) newErrors.duration = 'Please select a duration';
     if (!formData.startDate) newErrors.startDate = 'Start Date is required';
@@ -138,10 +104,7 @@ const AddStudentPage = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log('Form Data:', formData);
       alert('Certificate ready to download!');
-
-      // ✅ clear the form only on success
       setFormData({
         studentName: '',
         registerNo: '',
@@ -155,126 +118,31 @@ const AddStudentPage = () => {
         startDate: '',
         endDate: ''
       });
-
       setErrors({});
+      navigate('/users'); // ✅ Redirect to users page
     }
   };
 
   return (
     <>
       <Navbar />
-      <Box
-        sx={{
-          minHeight: '100vh',
-          background: 'linear-gradient(135deg,#f1f0f1, #f1f0f1)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          py: 4,
-          fontFamily: `'Segoe UI', sans-serif`,
-        }}
-      >
-        <Paper
-          elevation={10}
-          sx={{
-            p: 4,
-            width: '100%',
-            maxWidth: 600,
-            borderRadius: 2,
-          }}
-        >
+      <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg,#f1f0f1, #f1f0f1)', display: 'flex', justifyContent: 'center', alignItems: 'center', py: 4 }}>
+        <Paper elevation={10} sx={{ padding: '40px 30px', borderRadius: '12px', maxWidth: 400, width: '100%' }}>
           <Box textAlign="center" mb={3}>
             <img src={Stud} alt="student icon" style={{ width: 70, height: 70 }} />
-            <Typography variant="h5" sx={{ mt: 2, color: '#222' }}>
-              Add Student Details
-            </Typography>
+            <Typography variant="h5" sx={{ mt: 2, color: '#222' }}>Add Student Details</Typography>
           </Box>
 
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            display="flex"
-            flexDirection="column"
-            gap={2}
-          >
-            <TextField 
-              label={
-                <span>
-                  Student Name <span style={{ color: "red" }}>*</span>
-                </span>
-              }
-              name="studentName"
-              value={formData.studentName}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              error={!!errors.studentName}
-              helperText={errors.studentName}
-              size="small"
-            />
-
-            <TextField
-              label={
-                <span>
-                  Register No <span style={{ color: "red" }}>*</span>
-                </span>
-              }
-              name="registerNo"
-              value={formData.registerNo}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              error={!!errors.registerNo}
-              helperText={errors.registerNo}
-              size="small"
-            />
-
-            <TextField
-               label={
-                <span>
-                  Collage Name <span style={{ color: "red" }}>*</span>
-                </span>
-              }
-              name="collegeName"
-              value={formData.collegeName}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              error={!!errors.collegeName}
-              helperText={errors.collegeName}
-              size="small"
-            />
-
-            <TextField
-              label={
-                <span>
-                  Department <span style={{ color: "red" }}>*</span>
-                </span>
-              }
-              name="department"
-              value={formData.department}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              error={!!errors.department}
-              helperText={errors.department}
-              size="small"
-            />
-
-            <TextField
-              label={
-                <span>
-                  Email Id <span style={{ color: "red" }}>*</span>
-                </span>
-              }
-              name="email"
-              value={formData.email}
-              onChange={(e) => handleChange(e.target.name, e.target.value)}
-              error={!!errors.email}
-              helperText={errors.email}
-              size="small"
-            />
+          <Box component="form" onSubmit={handleSubmit} display="flex" flexDirection="column" gap={2}>
+            <TextField label="Student Name *" name="studentName" value={formData.studentName} onChange={(e) => handleChange(e.target.name, e.target.value)} error={!!errors.studentName} helperText={errors.studentName} size="small" />
+            <TextField label="Register No *" name="registerNo" value={formData.registerNo} onChange={(e) => handleChange(e.target.name, e.target.value)} error={!!errors.registerNo} helperText={errors.registerNo} size="small" />
+            <TextField label="College Name *" name="collegeName" value={formData.collegeName} onChange={(e) => handleChange(e.target.name, e.target.value)} error={!!errors.collegeName} helperText={errors.collegeName} size="small" />
+            <TextField label="Department *" name="department" value={formData.department} onChange={(e) => handleChange(e.target.name, e.target.value)} error={!!errors.department} helperText={errors.department} size="small" />
+            <TextField label="Email Id *" name="email" value={formData.email} onChange={(e) => handleChange(e.target.name, e.target.value)} error={!!errors.email} helperText={errors.email} size="small" />
 
             <FormControl fullWidth size="small" error={!!errors.type}>
-              <InputLabel>Preferred Domain <span style={{ color: "red" }}>*</span></InputLabel>
-              <Select
-                name="type"
-                value={formData.type}
-                label="Preferred Domain *"
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-              >
+              <InputLabel>Preferred Domain *</InputLabel>
+              <Select name="type" value={formData.type} label="Preferred Domain *" onChange={(e) => handleChange(e.target.name, e.target.value)}>
                 <MenuItem value="Course">Course</MenuItem>
                 <MenuItem value="Internship">Internship</MenuItem>
               </Select>
@@ -283,17 +151,10 @@ const AddStudentPage = () => {
 
             {formData.type && (
               <FormControl fullWidth size="small" error={!!errors.duration}>
-                <InputLabel>Duration <span style={{ color: "red" }}>*</span></InputLabel>
-                <Select
-                  name="duration"
-                  value={formData.duration}
-                  label="Duration *"
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                >
+                <InputLabel>Duration *</InputLabel>
+                <Select name="duration" value={formData.duration} label="Duration *" onChange={(e) => handleChange(e.target.name, e.target.value)}>
                   {getDurationOptions().map((d) => (
-                    <MenuItem key={d} value={d}>
-                      {d}
-                    </MenuItem>
+                    <MenuItem key={d} value={d}>{d}</MenuItem>
                   ))}
                 </Select>
                 {errors.duration && <FormHelperText>{errors.duration}</FormHelperText>}
@@ -302,47 +163,17 @@ const AddStudentPage = () => {
 
             {formData.duration && (
               <>
-                <TextField
-                  label="Start Date"
-                  type="date"
-                  name="startDate"
-                  value={formData.startDate}
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                  InputLabelProps={{ shrink: true }}
-                  error={!!errors.startDate}
-                  helperText={errors.startDate}
-                  size="small"
-                  fullWidth
-                />
-
-                <TextField
-                  label="End Date"
-                  type="date"
-                  name="endDate"
-                  value={formData.endDate}
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                  InputLabelProps={{ shrink: true }}
-                  error={!!errors.endDate}
-                  helperText={errors.endDate}
-                  size="small"
-                  fullWidth
-                />
+                <TextField label="Start Date" type="date" name="startDate" value={formData.startDate} onChange={(e) => handleChange(e.target.name, e.target.value)} InputLabelProps={{ shrink: true }} error={!!errors.startDate} helperText={errors.startDate} size="small" fullWidth />
+                <TextField label="End Date" type="date" name="endDate" value={formData.endDate} onChange={(e) => handleChange(e.target.name, e.target.value)} InputLabelProps={{ shrink: true }} error={!!errors.endDate} helperText={errors.endDate} size="small" fullWidth />
               </>
             )}
 
             {formData.duration && (
               <FormControl fullWidth size="small" error={!!errors.domain}>
-                <InputLabel>Main Domain <span style={{ color: "red" }}>*</span></InputLabel>
-                <Select
-                  name="domain"
-                  value={formData.domain}
-                  label="Main Domain *"
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                >
+                <InputLabel>Main Domain *</InputLabel>
+                <Select name="domain" value={formData.domain} label="Main Domain *" onChange={(e) => handleChange(e.target.name, e.target.value)}>
                   {getDomainOptions().map((d) => (
-                    <MenuItem key={d} value={d}>
-                      {d}
-                    </MenuItem>
+                    <MenuItem key={d} value={d}>{d}</MenuItem>
                   ))}
                 </Select>
                 {errors.domain && <FormHelperText>{errors.domain}</FormHelperText>}
@@ -351,35 +182,17 @@ const AddStudentPage = () => {
 
             {formData.domain && getSpecificDomains().length > 0 && (
               <FormControl fullWidth size="small" error={!!errors.specificDomain}>
-                <InputLabel>Specific Domain <span style={{ color: "red" }}>*</span></InputLabel>
-                <Select
-                  name="specificDomain"
-                  value={formData.specificDomain}
-                  label="Specific Domain *"
-                  onChange={(e) => handleChange(e.target.name, e.target.value)}
-                >
+                <InputLabel>Specific Domain *</InputLabel>
+                <Select name="specificDomain" value={formData.specificDomain} label="Specific Domain *" onChange={(e) => handleChange(e.target.name, e.target.value)}>
                   {getSpecificDomains().map((d) => (
-                    <MenuItem key={d} value={d}>
-                      {d}
-                    </MenuItem>
+                    <MenuItem key={d} value={d}>{d}</MenuItem>
                   ))}
                 </Select>
-                {errors.specificDomain && (
-                  <FormHelperText>{errors.specificDomain}</FormHelperText>
-                )}
+                {errors.specificDomain && <FormHelperText>{errors.specificDomain}</FormHelperText>}
               </FormControl>
             )}
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{
-                fontWeight: 'bold',
-                mt: 2,
-                textTransform: 'none'
-              }}
-            >
+            <Button type="submit" variant="contained" color="primary" sx={{ fontWeight: 'bold', mt: 2, textTransform: 'none' }}>
               Submit Student Details
             </Button>
           </Box>
