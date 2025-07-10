@@ -20,8 +20,11 @@ const Form = () => {
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const EMAIL = 'inetz@admin.com';
+  const EMAIL = 'inetz@staff.com';
   const PASSWORD = 'inetz123';
+
+  const AdminEmail = 'inetz@admin.com';
+  const AdminPassword ='inetz321'
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -70,9 +73,16 @@ const Form = () => {
     if (email === EMAIL && password === PASSWORD) {
       localStorage.setItem('isLoggedIn', 'true');
       navigate('/users');
-    } else {
+    }
+    else if(email === AdminEmail && password === AdminPassword){
+      localStorage.setItem('isLoggedIn', 'true');
+      navigate('/adminPage');
+    }
+     else {
       setMessage('Invalid email or password');
     }
+
+    
   };
 
   return (

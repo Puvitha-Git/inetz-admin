@@ -154,5 +154,164 @@
       "startDate": "2025-08-01",
       "endDate": "2025-08-09"
     }
+  ],
+  "staff": [
+    {
+      "id": 1,
+      "name": "Anjali R",
+      "email": "anjali.r@example.com",
+      "phone": "9876543210",
+      "experience": 5,
+      "skills": [
+        "Java",
+        "Spring Boot",
+        "SQL"
+      ],
+      "dateOfJoin": "2019-06-12"
+    },
+    {
+      "id": 2,
+      "name": "Manoj S",
+      "email": "manoj.s@example.com",
+      "phone": "9876543211",
+      "experience": 3,
+      "skills": [
+        "JavaScript",
+        "React",
+        "Node.js"
+      ],
+      "dateOfJoin": "2021-01-05"
+    },
+    {
+      "id": 3,
+      "name": "Priya D",
+      "email": "priya.d@example.com",
+      "phone": "9876543212",
+      "experience": 7,
+      "skills": [
+        "Python",
+        "Django",
+        "Machine Learning"
+      ],
+      "dateOfJoin": "2017-03-10"
+    },
+    {
+      "id": 4,
+      "name": "Vikram K",
+      "email": "vikram.k@example.com",
+      "phone": "9876543213",
+      "experience": 2,
+      "skills": [
+        "HTML",
+        "CSS",
+        "JavaScript"
+      ],
+      "dateOfJoin": "2022-07-15"
+    },
+    {
+      "id": 5,
+      "name": "Divya L",
+      "email": "divya.l@example.com",
+      "phone": "9876543214",
+      "experience": 4,
+      "skills": [
+        "C#",
+        ".NET",
+        "SQL Server"
+      ],
+      "dateOfJoin": "2020-08-20"
+    },
+    {
+      "id": 6,
+      "name": "Rajeev P",
+      "email": "rajeev.p@example.com",
+      "phone": "9876543215",
+      "experience": 6,
+      "skills": [
+        "Angular",
+        "TypeScript",
+        "RxJS"
+      ],
+      "dateOfJoin": "2018-11-02"
+    },
+    {
+      "id": 7,
+      "name": "Sneha N",
+      "email": "sneha.n@example.com",
+      "phone": "9876543216",
+      "experience": 1,
+      "skills": [
+        "UI/UX",
+        "Figma",
+        "Adobe XD"
+      ],
+      "dateOfJoin": "2023-02-12"
+    },
+    {
+      "id": 8,
+      "name": "Arun M",
+      "email": "arun.m@example.com",
+      "phone": "9876543217",
+      "experience": 8,
+      "skills": [
+        "DevOps",
+        "AWS",
+        "Docker",
+        "Jenkins"
+      ],
+      "dateOfJoin": "2016-04-08"
+    },
+    {
+      "id": 9,
+      "name": "Kavitha R",
+      "email": "kavitha.r@example.com",
+      "phone": "9876543218",
+      "experience": 4,
+      "skills": [
+        "Data Analysis",
+        "Excel",
+        "Power BI"
+      ],
+      "dateOfJoin": "2020-10-25"
+    },
+    {
+      "id": 10,
+      "name": "Surya B",
+      "email": "surya.b@example.com",
+      "phone": "9876543219",
+      "experience": 5,
+      "skills": [
+        "PHP",
+        "Laravel",
+        "MySQL"
+      ],
+      "dateOfJoin": "2019-01-30"
+    },
+    {
+      "id": "38a8",
+      "name": "yuvedha g",
+      "email": "user@example.com",
+      "phone": "7200442575",
+      "experience": "3",
+      "skills": [
+        "html",
+        "css",
+        "js"
+      ],
+      "dateOfJoin": "2025-07-15"
+    },
+    {
+      "id": "d1f5",
+      "name": "Lokesh",
+      "email": "bcd@gmail.com",
+      "phone": "7200442577",
+      "experience": "3",
+      "skills": [
+        "html",
+        "css",
+        "js"
+      ],
+      "dateOfJoin": "2025-07-09"
+    }
   ]
 }
