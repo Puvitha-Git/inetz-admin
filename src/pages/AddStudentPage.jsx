@@ -104,22 +104,24 @@ const AddStudentPage = () => {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      alert('Certificate ready to download!');
-      setFormData({
-        studentName: '',
-        registerNo: '',
-        collegeName: '',
-        department: '',
-        email: '',
-        type: '',
-        duration: '',
-        domain: '',
-        specificDomain: '',
-        startDate: '',
-        endDate: ''
-      });
-      setErrors({});
-      navigate('/users'); // ✅ Redirect to users page
+      // POST request to json-server
+      fetch("http://localhost:3001/students", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to add student");
+          return res.json();
+        })
+        .then(data => {
+          alert("Student added successfully!");
+          navigate("/users");
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Something went wrong!");
+        });
     }
   };
 

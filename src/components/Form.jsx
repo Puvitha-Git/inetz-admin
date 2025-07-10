@@ -69,7 +69,7 @@ const Form = () => {
 
     if (email === EMAIL && password === PASSWORD) {
       localStorage.setItem('isLoggedIn', 'true');
-      navigate('/add-student');
+      navigate('/users');
     } else {
       setMessage('Invalid email or password');
     }
