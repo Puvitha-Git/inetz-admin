@@ -17,13 +17,12 @@ import {
   ListItemText,
   ListItemIcon,
 } from "@mui/material";
-
+import LogoutIcon from "@mui/icons-material/Logout";
 import EditIcon from "@mui/icons-material/Edit";
 import SearchIcon from "@mui/icons-material/Search";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PeopleIcon from "@mui/icons-material/People";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -33,6 +32,10 @@ const StaffPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   useEffect(() => {
     fetch("http://localhost:3001/staff")
@@ -106,6 +109,12 @@ const StaffPage = () => {
               </ListItemIcon>
               <ListItemText primary="Add Students" />
             </ListItem>
+            <ListItem button onClick={() => handleLogout()}>
+              <ListItemIcon>
+                <LogoutIcon />
+              </ListItemIcon>
+              <ListItemText primary="Logout" />
+            </ListItem>
           </List>
         </Box>
 
@@ -167,18 +176,49 @@ const StaffPage = () => {
               <CircularProgress />
             </Box>
           ) : (
-            <Paper elevation={3} sx={{ borderRadius: 3, overflow: "auto", maxHeight: 450 ,ml:2}}>
+            <Paper
+              elevation={3}
+              sx={{ borderRadius: 3, overflow: "auto", maxHeight: 450, ml: 2 }}
+            >
               <Box sx={{ width: "max-content" }}>
                 <Table stickyHeader sx={{ minWidth: 1100 }}>
                   <TableHead>
                     <TableRow>
-                      <TableCell sx={{ minWidth: 150 ,backgroundColor:"#f5f6fa"}}>Name</TableCell>
-                      <TableCell sx={{ minWidth: 200, backgroundColor:"#f5f6fa" }}>Email</TableCell>
-                      <TableCell sx={{ minWidth: 130 ,backgroundColor:"#f5f6fa"}}>Phone</TableCell>
-                      <TableCell sx={{ minWidth: 150 ,backgroundColor:"#f5f6fa"}}>Experience (Years)</TableCell>
-                      <TableCell sx={{ minWidth: 250 ,backgroundColor:"#f5f6fa"}}>Skills</TableCell>
-                      <TableCell sx={{ minWidth: 150 ,backgroundColor:"#f5f6fa"}}>Date of Joining</TableCell>
-                      <TableCell sx={{ minWidth: 100 ,backgroundColor:"#f5f6fa"}}>Actions</TableCell>
+                      <TableCell
+                        sx={{ minWidth: 150, backgroundColor: "#f5f6fa" }}
+                      >
+                        Name
+                      </TableCell>
+                      <TableCell
+                        sx={{ minWidth: 200, backgroundColor: "#f5f6fa" }}
+                      >
+                        Email
+                      </TableCell>
+                      <TableCell
+                        sx={{ minWidth: 130, backgroundColor: "#f5f6fa" }}
+                      >
+                        Phone
+                      </TableCell>
+                      <TableCell
+                        sx={{ minWidth: 150, backgroundColor: "#f5f6fa" }}
+                      >
+                        Experience (Years)
+                      </TableCell>
+                      <TableCell
+                        sx={{ minWidth: 250, backgroundColor: "#f5f6fa" }}
+                      >
+                        Skills
+                      </TableCell>
+                      <TableCell
+                        sx={{ minWidth: 150, backgroundColor: "#f5f6fa" }}
+                      >
+                        Date of Joining
+                      </TableCell>
+                      <TableCell
+                        sx={{ minWidth: 100, backgroundColor: "#f5f6fa" }}
+                      >
+                        Actions
+                      </TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -193,7 +233,7 @@ const StaffPage = () => {
                         <TableCell>{s.dateOfJoin}</TableCell>
                         <TableCell>
                           <IconButton
-                            // onClick={() => navigate(`/editstaff/${s.id}`)}
+                          // onClick={() => navigate(`/editstaff/${s.id}`)}
                           >
                             <EditIcon />
                           </IconButton>
