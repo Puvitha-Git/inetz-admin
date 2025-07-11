@@ -15,6 +15,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 
 const StaffSideBar = ({ handleLogout }) => {
+  localStorage.clear()
   const navigate = useNavigate();
 
   return (

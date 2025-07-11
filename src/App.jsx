@@ -7,16 +7,13 @@ import AdminPage from './pages/AdminPage';
 import AddStaffPage from './pages/AddStaffPage';
 
 function App() {
-  return (
-    
-    <Routes>
-      
+  return (    
+    <Routes>      
       <Route path="/" element={<LoginPage />} />
       <Route path="/addstudent" element={<AddStudentPage />} />
       <Route path="/users" element={<UsersPage/>}/>
       <Route path= "/adminPage" element={<AdminPage/>}/>
       <Route path="/addstaff" element={<AddStaffPage />} />
-
     </Routes>
   );
 }
