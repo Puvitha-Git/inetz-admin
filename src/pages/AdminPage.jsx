@@ -4,11 +4,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import AdminSideBar from "../components/AdminSideBar";
 import AdminStaffContent from "../components/AdminStaffContent";
-import UsersMainContent from "../components/UsersMainContent"; // import this too
+import UsersMainContent from "../components/UsersMainContent";
 import { useNavigate } from "react-router-dom";
 
 const AdminPage = () => {
-  const [mainView, setMainView] = useState("staff"); // default is staff content
+  const [mainView, setMainView] = useState("staff"); 
   const [staff, setStaff] = useState([]);
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");

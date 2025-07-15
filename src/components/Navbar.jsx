@@ -14,7 +14,6 @@ const Logo = styled('img')(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     width: 60,
     height: 40,
-    marginLeft: 10,
   },
 }));
 

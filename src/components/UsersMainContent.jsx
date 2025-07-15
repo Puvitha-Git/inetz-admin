@@ -34,10 +34,19 @@ const UsersMainContent = ({ students, searchTerm, setSearchTerm, loading }) => {
         py: 3,
         px: 4,
         backgroundColor: "#f5f6fa",
+        minHeight: "100vh",
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "space-between", mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: "bold", ml: 3 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: "bold",
+            ml: 3,
+            color: "#2c3e50",
+            textShadow: "1px 1px #e0e0e0",
+          }}
+        >
           Our Students
         </Typography>
 
@@ -52,6 +61,7 @@ const UsersMainContent = ({ students, searchTerm, setSearchTerm, loading }) => {
               pr: 1,
               width: "300px",
               backgroundColor: "#fff",
+              boxShadow: "0 2px 5px rgba(0,0,0,0.05)",
             }}
           >
             <SearchIcon color="action" />
@@ -62,11 +72,23 @@ const UsersMainContent = ({ students, searchTerm, setSearchTerm, loading }) => {
               fullWidth
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              sx={{ ml: 1 }}
             />
           </Box>
+
           <Button
             variant="contained"
-            sx={{ borderRadius: "25px", textTransform: "none" }}
+            sx={{
+              borderRadius: "25px",
+              textTransform: "none",
+              backgroundColor: "#283244",
+              fontWeight: "bold",
+              px: 3,
+              boxShadow: "0 3px 6px rgba(0,0,0,0.2)",
+              "&:hover": {
+                backgroundColor: "#1f2733",
+              },
+            }}
             onClick={() => navigate("/addstudent")}
           >
             + NEW
@@ -79,23 +101,61 @@ const UsersMainContent = ({ students, searchTerm, setSearchTerm, loading }) => {
           <CircularProgress />
         </Box>
       ) : (
-        <Paper elevation={3} sx={{ borderRadius: 3, overflow: "auto", maxHeight: 450, ml: 2 }}>
+        <Paper
+          elevation={3}
+          sx={{
+            borderRadius: 3,
+            overflow: "auto",
+            maxHeight: 450,
+            ml: 2,
+            backgroundColor: "#ffffff",
+            boxShadow: "0 3px 10px rgba(0, 0, 0, 0.08)",
+          }}
+        >
           <Box sx={{ width: "max-content" }}>
             <Table stickyHeader sx={{ minWidth: 1300 }}>
               <TableHead>
                 <TableRow>
                   {[
-                    "Name", "Register No", "College Name", "Department", "Email Id",
-                    "Preferred Domain", "Duration", "Start Date", "End Date",
-                    "Main Domain", "Specific Domain", "Actions"
+                    "Name",
+                    "Register No",
+                    "College Name",
+                    "Department",
+                    "Email Id",
+                    "Preferred Domain",
+                    "Duration",
+                    "Start Date",
+                    "End Date",
+                    "Main Domain",
+                    "Specific Domain",
+                    "Actions",
                   ].map((label, idx) => (
-                    <TableCell key={idx} sx={{ backgroundColor: "#f5f6fa" }}>{label}</TableCell>
+                    <TableCell
+                      key={idx}
+                      sx={{
+                        backgroundColor: "#f0f2f5",
+                        fontWeight: "bold",
+                        fontSize: "0.95rem",
+                        color: "#37474f",
+                      }}
+                    >
+                      {label}
+                    </TableCell>
                   ))}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {filteredStudents.map((student) => (
-                  <TableRow key={student.id}>
+                  <TableRow
+                    key={student.id}
+                    sx={{
+                      "&:hover": {
+                        backgroundColor: "#f9fafc",
+                        cursor: "pointer",
+                        transition: "0.2s ease-in-out",
+                      },
+                    }}
+                  >
                     <TableCell>{student.studentName}</TableCell>
                     <TableCell>{student.registerNo}</TableCell>
                     <TableCell>{student.collegeName}</TableCell>
@@ -109,6 +169,12 @@ const UsersMainContent = ({ students, searchTerm, setSearchTerm, loading }) => {
                     <TableCell>{student.specificDomain}</TableCell>
                     <TableCell>
                       <IconButton
+                        sx={{
+                          color: "#1976d2",
+                          "&:hover": {
+                            backgroundColor: "#e3f2fd",
+                          },
+                        }}
                         // onClick={() => navigate(`/editstudent/${student.id}`)}
                       >
                         <EditIcon />
